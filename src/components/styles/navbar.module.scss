@@ -1,0 +1,65 @@
+.nav1{
+    background-color: rgb(255, 255, 255);
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 5%;
+    img{
+        width: 40px;
+        height: 40px;
+    }
+}
+.nav2{
+    background-color: rgb(27, 27, 27);
+    background-image: url("/Mandala.png");
+    background-size:25% ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: 10%;
+    .subNav1{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 5%;
+        input{
+            height: 30%;
+            border-radius: 15px;
+            box-shadow: 5px 5px 5px solid black;
+        }
+    }
+    .subNav2{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-around;
+        color: white;
+        .subdivision1{
+            width: 30%;
+            padding-right: 10%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 10px;
+            img{
+                width: 25%;
+                
+            }
+        }
+        .subdivision2{
+            display: flex;
+            flex-direction: row;
+            width: 60%;
+            padding-right: 1%;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 10px;
+            img{
+                width: 8%;
+            }
+        }
+    }
+}
