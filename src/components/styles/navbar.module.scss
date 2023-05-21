@@ -1,4 +1,7 @@
-.nav1{
+@import "./global/Color.module.scss";
+@import "./global/Font.module.scss";
+
+.nav1 {
     background-color: rgb(255, 255, 255);
     height: 10vh;
     display: flex;
@@ -6,37 +9,91 @@
     justify-content: space-between;
     align-items: center;
     padding-inline: 5%;
-    img{
+    @include fontePadrao;
+
+    div {
+        padding: 20px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    img {
         width: 40px;
         height: 40px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
-.nav2{
-    background-color: rgb(27, 27, 27);
+
+.nav2 {
+    background-color: $BackgroundColor;
     background-image: url("/Mandala.png");
-    background-size:25% ;
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: 10%;
-    .subNav1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+    height: 20vh;
+    background-size: 20%;
+    @include fontePadrao;
+
+
+
+    @media(min-width:320px) and (max-width:480px) {
+        background-size: 50%;
+        background-position-y: 30%;
+    }
+
+    @media(min-width:481px) and (max-width:768px) {
+        background-size: 40%;
+    }
+
+    @media(min-width:769px) and (max-width:1200px) {
+        height: 40vh;
+        background-size: 40%;
+    }
+
+    @media(min-width:1200px) {
+        height: 40vh;
+        background-size: 20%;
+    }
+
+    .subNav1 {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
         padding-right: 5%;
-        input{
-            height: 30%;
+
+        input {
+            height: 20px;
+            width: 120px;
             border-radius: 15px;
             box-shadow: 5px 5px 5px solid black;
+            text-align: center;
+
+            @media(min-width:1200px) {
+                height: 3vh;
+                width: 8vw;
+            }
         }
     }
-    .subNav2{
+
+    .subNav2 {
         display: flex;
         flex-direction: row;
         align-items: flex-end;
         justify-content: space-around;
         color: white;
-        .subdivision1{
+
+        .subdivision1 {
             width: 30%;
             padding-right: 10%;
             display: flex;
@@ -44,12 +101,14 @@
             justify-content: space-around;
             align-items: center;
             padding-bottom: 10px;
-            img{
+
+            img {
                 width: 25%;
-                
+
             }
         }
-        .subdivision2{
+
+        .subdivision2 {
             display: flex;
             flex-direction: row;
             width: 60%;
@@ -57,8 +116,24 @@
             justify-content: space-around;
             align-items: center;
             padding-bottom: 10px;
-            img{
+
+            h3 {
+                transition: all 0.2s;
+
+                &:hover {
+                    cursor: pointer;
+                    border-bottom: 3px solid white;
+                }
+            }
+
+            img {
                 width: 8%;
+                transition: all 0.5s;
+
+                &:hover {
+                    cursor: pointer;
+                    width: 8.5%;
+                }
             }
         }
     }

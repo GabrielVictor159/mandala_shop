@@ -1,0 +1,68 @@
+@import "./global/Color.module.scss";
+@import "./global/Font.module.scss";
+
+.nav1 {
+    background-color: $BackgroundColor;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    @include fontePadrao;
+
+    div {
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: white;
+
+        .dados {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+
+            li {
+                width: 8vw;
+            }
+        }
+
+        .pages {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+
+            h2 {
+                transition: all 0.2s;
+                border-bottom: 0px solid white;
+
+                &:hover {
+                    cursor: pointer;
+                    border-bottom: 3px solid white;
+                }
+            }
+        }
+
+        h3 {
+            width: 20vw;
+        }
+
+        img {
+            width: 5vw;
+            height: 5vw;
+        }
+    }
+
+}
+
+.nav2 {
+    background-color: white;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include fontePadrao;
+}
