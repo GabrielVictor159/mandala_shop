@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from "./styles/navbar.module.scss";
 import Contatos from './Contatos';
 import { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 export interface NavbarProps {
     active?: boolean,
 }
@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true }) => {
     const [isContatosVisible, setIsContatosVisible] = useState(false);
     const [mouseHover, setMouseHover] = useState(false);
     const [contatosHover, setContatosHover] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (mouseHover) {
             setIsContatosVisible(true);
@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true }) => {
                 </nav>
                 <nav className={styles.subNav2} >
                     <div className={styles.subdivision1}>
-                        <img src='/MulherMandala.png' />
+                        <img src='/MulherMandala.png' onClick={() => navigate("/")} />
                     </div>
                     <div className={styles.subdivision2}>
                         <h3>

@@ -2,12 +2,12 @@
 
 .division1 {
     width: 100%;
-    height: 600px;
+    min-height: 600px;
 }
 
 .division2 {
     width: 100%;
-    height: 500px;
+    min-height: 500px;
     background-color: white;
     @include fontePadrao;
 
@@ -16,6 +16,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .produtosContainer {
+        width: 100%;
+        display: grid;
     }
 }
 
@@ -26,5 +31,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include fontePadrao;
+    @include fontePadrao(-2);
+    text-align: center;
 }

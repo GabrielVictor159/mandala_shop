@@ -105,6 +105,9 @@
             img {
                 width: 25%;
 
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
 

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import styles from "./styles/Footer.module.scss";
-
+import { useNavigate, useLocation } from 'react-router-dom';
 export interface FooterProps {
     active?: boolean,
 }
 
 const Footer: React.FC = (props: any) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     return (
         <>
             <nav className={styles.nav1}>
@@ -19,10 +21,10 @@ const Footer: React.FC = (props: any) => {
                 </div>
                 <div >
                     <div className={styles.pages}>
-                        <h2>
+                        <h2 onClick={() => navigate("/PoliticaDePrivacidade")}>
                             Política de Privacidade
                         </h2>
-                        <h2>
+                        <h2 onClick={() => navigate("/EnvioPagamentoMensagem")}>
                             Envio e Pagamento
                         </h2>
                     </div>
