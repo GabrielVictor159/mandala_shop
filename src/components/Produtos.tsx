@@ -23,12 +23,12 @@ const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
                 :
                 <div className={styles.div2}>
                     <div className={styles.containerImage}>
-                        <img className={styles.image} src={produto?.imagens} />
+                        <img className={styles.image} src={produto?.imagens ?? "/MulherMandala.png"} />
                     </div>
-                    <div>
+                    <div className={styles.containerDados}>
                         <h3>{produto?.nome}</h3>
-                        <h3>{`R$ ${produto?.preco}`}</h3>
-                        <button className={styles.button}>MAIS INFORMMAÇÕES</button>
+                        <h2 className={styles.precoEscrita}>{`R$ ${produto?.preco}`}</h2>
+                        <button className={styles.button}>MAIS INFORMAÇÕES</button>
                     </div>
                 </div>
             }

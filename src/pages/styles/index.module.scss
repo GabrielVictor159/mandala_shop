@@ -1,31 +1,33 @@
 @import "../../components/styles/global/Font.module.scss";
 
 .division1 {
-    width: 100%;
+    width: 100vw;
     min-height: 600px;
+    overflow: hidden;
 }
 
 .division2 {
-    width: 100%;
     min-height: 500px;
     background-color: white;
     @include fontePadrao;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px;
 
-    .tituloContainer {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    overflow: hidden;
 
     .produtosContainer {
-        width: 100%;
-        display: grid;
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 30px;
     }
 }
 
 .division3 {
-    width: 100%;
     height: 100px;
     background-color: white;
     display: flex;
@@ -33,4 +35,5 @@
     justify-content: center;
     @include fontePadrao(-2);
     text-align: center;
+    overflow: hidden;
 }
