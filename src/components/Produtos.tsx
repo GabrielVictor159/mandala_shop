@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styles from "./styles/Produtos.module.scss";
 import { Produto } from '../model/Produto';
+import { useEffect, useState } from 'react';
+import ArrayStringToArray from '../functions/ArrayStringToArray';
+import { SystemConfigs } from '../config/SystemConfigs';
 
 export interface ProdutosProps {
     vertical?: boolean,
@@ -8,6 +11,16 @@ export interface ProdutosProps {
 }
 
 const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
+    const [images, setImages] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (produto?.imagens) {
+            setImages(ArrayStringToArray(produto.imagens));
+        } else {
+            setImages([]);
+        }
+    }, [produto]);
+
     return (
         <>
             {vertical
@@ -15,7 +28,11 @@ const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
                 <div className={styles.div1}>
                     <h3>{produto?.nome}</h3>
                     <div className={styles.containerImage}>
-                        <img className={styles.image} src={produto?.imagens} />
+                        <img
+                            className={styles.image}
+                            src={images[0] ? `${SystemConfigs.linkBackEnd}images/${images[0]}` : "/MulherMandala.png"}
+                            alt="Imagem do produto"
+                        />
                     </div>
                     <h3>{`R$ ${produto?.preco}`}</h3>
                     <button className={styles.button}>MAIS INFORMMAÇÕES</button>
@@ -23,7 +40,11 @@ const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
                 :
                 <div className={styles.div2}>
                     <div className={styles.containerImage}>
-                        <img className={styles.image} src={produto?.imagens ?? "/MulherMandala.png"} />
+                        <img
+                            className={styles.image}
+                            src={images[0] ? `${SystemConfigs.linkBackEnd}images/${images[0]}` : "/MulherMandala.png"}
+                            alt="Imagem do produto"
+                        />
                     </div>
                     <div className={styles.containerDados}>
                         <h3>{produto?.nome}</h3>

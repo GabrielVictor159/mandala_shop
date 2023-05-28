@@ -1,0 +1,54 @@
+@import "./global/Font.module.scss";
+@import "./global/Color.module.scss";
+@import "./global/Geral.module.scss";
+
+.division {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    @include fontePadrao(5);
+    gap: 15px;
+
+    h5 {
+        width: 2em;
+        height: 2em;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: lighten($BackgroundColor, 30%);
+        }
+    }
+
+    .page {
+        background-color: $Color;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $Color;
+            opacity: 0.8;
+        }
+    }
+
+    img {
+        transition: all 0.5s;
+        border-radius: 100%;
+        padding: 0.4em;
+        background-color: transparent;
+
+        &:hover {
+            cursor: pointer;
+            background-color: lighten($BackgroundColor, 30%);
+
+        }
+
+        width: 1em;
+    }
+}

@@ -1,96 +1,48 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import styles from "./styles/index.module.scss";
-import { historyContext } from "../App";
+import { historyContext, produtosContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import HistoryPagesSet from "../functions/HistoryPagesSet";
 import { NavigatePages } from "../model/NavigatePages";
 import { Produto } from "../model/Produto";
 import Produtos from "../components/Produtos";
+import { PaginacaoProdutoDTO } from "../model/DTO/PaginacaoProdutoDTO";
+import PageNav from "../components/PageNav";
 export default function Index() {
   const { history, setHistory } = useContext(historyContext);
-  const [produtos, setProdutos] = useState<Produto[]>([]);
+  const { produtos, setProdutos } = useContext(produtosContext);
+  const [searchProducts, setSearchProducts] = useState<PaginacaoProdutoDTO>(new PaginacaoProdutoDTO());
+  const [search, setSearch] = useState<string>("");
+
   useEffect(() => {
     const page = new NavigatePages("Pagina Inicial", window.location.pathname);
-    setHistory(HistoryPagesSet(history, page))
+    setHistory(HistoryPagesSet(history, page));
+    setProdutos(searchProducts)
   }, []);
+
+
   useEffect(() => {
-    const listProdutos: Produto[] = [];
-    listProdutos.push(
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      },
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      },
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      },
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      },
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      },
-      {
-        id: "sdadasdasdas",
-        nome: "Carvão coco bass (novo formato)",
-        descricao: "fdsfsdfsd",
-        preco: 25,
-        imagens: "/MulherMandala.png",
-        categoria: {
-          id: "dasdasdas",
-          nome: "categoria de teste",
-        },
-      }
-    );
-    setProdutos(listProdutos);
-  }, [])
+    const newSearchProducts = searchProducts;
+    newSearchProducts.setNome(search);
+    setProdutos(newSearchProducts);
+    setSearchProducts(newSearchProducts);
+  }, [search]);
+
+  const setPage = (page: number) => {
+    const newSearchProducts = searchProducts;
+    newSearchProducts.setPagina(page);
+    setProdutos(newSearchProducts);
+    setSearchProducts(newSearchProducts);
+  };
+
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar setSearch={setSearch} />
       </header>
       <div className={styles.division1}>
 
@@ -103,14 +55,16 @@ export default function Index() {
         <br />
         <br /><br /><br />
         <div className={styles.produtosContainer}>
-          {
-            produtos.map((value, index) => {
-              return (
-                <Produtos produto={value} />
-              );
+          {produtos && produtos.content && (
+            produtos.content.map((value: Produto | undefined, index: number) => {
+              return <Produtos key={index} produto={value} />
             })
-          }
+          )}
         </div>
+        <br /><br /><br />
+        {produtos && (
+          <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
+        )}
       </div>
       <br /><br /><br />
       <div className={styles.division3}>

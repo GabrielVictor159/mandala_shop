@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 export interface NavbarProps {
     active?: boolean,
+    setSearch?: (page: string) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ active = true }) => {
+const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
     const [isContatosVisible, setIsContatosVisible] = useState(false);
     const [mouseHover, setMouseHover] = useState(false);
     const [contatosHover, setContatosHover] = useState(false);
@@ -39,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true }) => {
             <nav className={styles.nav2} >
                 <nav className={styles.subNav1} >
                     {active ?
-                        <input type='text' placeholder='Buscar' />
+                        <input type='text' placeholder='Buscar' onChange={(value) => { setSearch ? setSearch(value.target.value) : "" }} />
                         : <></>}
                 </nav>
                 <nav className={styles.subNav2} >
