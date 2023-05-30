@@ -46,17 +46,18 @@ export default function ProdutosCategoria() {
         <>
             <GenericPage Title={`${selectCategoria.nome}`} setSearch={setSearch} Busca={true}>
                 <div className={styles.containerMessage}>
-
-                    {produtos && produtos.content && (
-                        produtos.content.map((value: Produto | undefined, index: number) => {
-                            return <Produtos key={index} produto={value} />
-                        })
-                    )}
-
+                    <div className={styles.containerProdutos}>
+                        {produtos && produtos.content && (
+                            produtos.content.map((value: Produto | undefined, index: number) => {
+                                return <Produtos key={index} produto={value} />
+                            })
+                        )}
+                    </div>
                     <br /><br /><br />
                     {produtos && (
                         <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
                     )}
+
                 </div>
                 <br /><br /><br /><br /><br /><br /><br />
             </GenericPage>
