@@ -115,10 +115,12 @@
             display: flex;
             flex-direction: row;
             width: 60%;
-            padding-right: 1%;
-            justify-content: space-around;
+            padding-right: 5%;
+            justify-content: flex-end;
             align-items: center;
             padding-bottom: 10px;
+            gap: 3%;
+
 
             h3 {
                 transition: all 0.2s;
@@ -140,4 +142,49 @@
             }
         }
     }
+
+
+}
+
+.categoriasNav {
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    right: 1vw;
+    background-color: lighten($color: $BackgroundColor, $amount: 10);
+    transition: all 0.5s;
+    overflow: hidden;
+    @include fontePadrao();
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+
+    h3 {
+        margin: 0;
+        padding: 10px;
+        transition: all 0.2s;
+
+        span {
+            transition: all 0.5s;
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+
+            &:hover {
+                cursor: pointer;
+                border-bottom: 3px solid white;
+            }
+        }
+    }
+}
+
+
+
+.closeIcon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }

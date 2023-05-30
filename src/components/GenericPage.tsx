@@ -10,10 +10,11 @@ import { historyContext } from "../App";
 export interface GenericPageProps {
     children?: ReactNode,
     Title?: string,
-    Busca?: boolean
+    Busca?: boolean,
+    setSearch?: (page: string) => void
 }
 
-const GenericPage: React.FC<GenericPageProps> = ({ children, Title = "pagina sem nome", Busca = false }) => {
+const GenericPage: React.FC<GenericPageProps> = ({ children, Title = "pagina sem nome", Busca = false, setSearch }) => {
     const navigate = useNavigate();
     const { history, setHistory } = useContext(historyContext);
     const [atualizar, setAtualizar] = useState(0);
@@ -25,7 +26,7 @@ const GenericPage: React.FC<GenericPageProps> = ({ children, Title = "pagina sem
     return (
         <>
             <header>
-                <Navbar active={Busca} />
+                <Navbar active={Busca} setSearch={setSearch} />
             </header>
             <br />
             <br />

@@ -1,11 +1,11 @@
 export class PaginacaoProdutoDTO {
-    private nome?: string;
-    private categoria?: string;
-    private precoMinimo = -1;
-    private precoMaximo = -1;
-    private descricao?: string;
-    private pagina = 1;
-    private tamanhoPagina = 10;
+    public nome?: string;
+    public categoria?: string;
+    public precoMinimo = -1;
+    public precoMaximo = -1;
+    public descricao?: string;
+    public pagina = 1;
+    public tamanhoPagina = 10;
 
     constructor(
         nome?: string,
