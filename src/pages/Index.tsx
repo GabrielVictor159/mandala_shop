@@ -4,7 +4,7 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import styles from "./styles/index.module.scss";
-import { historyContext, produtosContext } from "../App";
+import { categoriasContext, historyContext, produtosContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import HistoryPagesSet from "../functions/HistoryPagesSet";
 import { NavigatePages } from "../model/NavigatePages";
@@ -12,9 +12,11 @@ import { Produto } from "../model/Produto";
 import Produtos from "../components/Produtos";
 import { PaginacaoProdutoDTO } from "../model/DTO/PaginacaoProdutoDTO";
 import PageNav from "../components/PageNav";
+import CategoriasMenu from "../components/CategoriasMenu";
 export default function Index() {
   const { history, setHistory } = useContext(historyContext);
   const { produtos, setProdutos } = useContext(produtosContext);
+  const { categorias } = useContext(categoriasContext);
   const [searchProducts, setSearchProducts] = useState<PaginacaoProdutoDTO>(new PaginacaoProdutoDTO());
   const [search, setSearch] = useState<string>("");
 
@@ -45,7 +47,7 @@ export default function Index() {
         <Navbar setSearch={setSearch} />
       </header>
       <div className={styles.division1}>
-
+        <CategoriasMenu categorias={categorias} />
       </div>
       <br />
       <div className={styles.division2}>
@@ -62,9 +64,9 @@ export default function Index() {
           )}
         </div>
         <br /><br /><br />
-        {produtos && (
+        {produtos && produtos.length > 0 ? (
           <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
-        )}
+        ) : <></>}
       </div>
       <br /><br /><br />
       <div className={styles.division3}>

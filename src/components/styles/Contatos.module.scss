@@ -1,15 +1,16 @@
 @import "./global/Font.module.scss";
 
 .div {
-    width: 15vw;
+    width: 20em;
     background-color: rgb(217, 217, 217);
     box-shadow: 2px 2px 2px solid rgba(82, 82, 82, 0.7);
     position: absolute;
-    left: 80vw;
+    right: 0;
     padding: 30px;
     @include fontePadrao;
     transition: all 0.5s;
     animation: surgir 0.5s ease-out 0s 1 normal forwards;
+    z-index: 1;
 
     &:hover {
         top: 10vh;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import styles from "./styles/navbar.module.scss";
 import Contatos from './Contatos';
@@ -19,7 +20,27 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
     const [categoriasNavWidth, setCategoriasNavWidth] = useState(0);
     const { selectCategoria, setSelectCategoria } = useContext(selectCategoriaContext);
     const navigate = useNavigate();
+    const [sizeProportion, setSizeProportion] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    useEffect(() => {
+        const a = windowWidth - windowHeight;
+        console.log(a);
+        setSizeProportion(a);
+    }, [windowHeight, windowWidth])
     useEffect(() => {
         if (mouseHover) {
             setIsContatosVisible(true);
@@ -43,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
 
     return (
         <>
-            {categorias.length <= 5 ? (
+            {categorias.length >= 7 || sizeProportion < 0 ? (
                 <div className={styles.categoriasNav} style={{ width: categoriasNavWidth }}>
                     <img src="/icons8-x-100.png" className={styles.closeIcon} onClick={handleClick} />
                     <br />
@@ -79,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
                         <img src='/MulherMandala.png' onClick={() => navigate("/")} />
                     </div>
                     <div className={styles.subdivision2}>
-                        {categorias.length >= 5 ? (
+                        {categorias.length <= 7 && sizeProportion >= 0 ? (
                             <>
                                 {categorias && categorias.map((value: Categoria) => <h3 onClick={() => { setSelectCategoria(value); navigate("/ProdutosCategoria") }}>{value.nome}</h3>)}
                                 <img src='/CarrinhoIcon.png' />

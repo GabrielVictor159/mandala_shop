@@ -10,6 +10,7 @@
     align-items: center;
     padding-inline: 5%;
     @include fontePadrao;
+    z-index: 1;
 
     div {
         padding: 20px;
@@ -43,7 +44,7 @@
     height: 20vh;
     background-size: 20%;
     @include fontePadrao;
-
+    z-index: 1;
 
 
     @media(min-width:320px) and (max-width:480px) {
@@ -159,6 +160,7 @@
     flex-direction: column;
     text-align: center;
     color: white;
+    z-index: 2;
 
     h3 {
         margin: 0;

@@ -54,9 +54,9 @@ export default function ProdutosCategoria() {
                         )}
                     </div>
                     <br /><br /><br />
-                    {produtos && (
+                    {produtos && produtos.length > 0 ? (
                         <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
-                    )}
+                    ) : <></>}
 
                 </div>
                 <br /><br /><br /><br /><br /><br /><br />

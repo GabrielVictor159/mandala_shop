@@ -1,0 +1,164 @@
+@import "./global/Font.module.scss";
+@import "./global/Color.module.scss";
+
+.containerMenu {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    @include fontePadrao();
+
+    .subMenu {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 3em;
+
+
+        .image1 {
+            width: 30%;
+            height: 100%;
+            object-fit: cover;
+            border: 1em solid $BackgroundColor;
+            transform: translateY(0);
+            transition: all 0.5s;
+
+            &:hover {
+                transform: translateY(-1em);
+                cursor: pointer;
+            }
+        }
+
+        .subMenuDivision1 {
+            width: 60%;
+            height: 103%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            h2 {
+                @include fonteEscrita(50);
+                font-weight: 300;
+                color: white;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                @media(min-width:320px) and (max-width:480px) {
+                    @include fonteEscrita(10);
+                }
+
+                @media(min-width:481px) and (max-width:768px) {
+                    @include fonteEscrita(20);
+                }
+
+                @media(min-width:769px) and (max-width:1200px) {
+                    @include fonteEscrita(30);
+                }
+
+                @media(min-width:1200px) {
+                    @include fonteEscrita(50);
+                }
+            }
+
+            .containerItem2 {
+                width: 97%;
+                height: 40%;
+                background-color: $BackgroundColor;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 1em;
+                transform: translateY(0);
+                transition: all 0.5s;
+
+                &:hover {
+                    transform: translateY(-1em);
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 50%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            }
+        }
+
+        .subMenuDivision2 {
+            width: 105%;
+            height: 45%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 1em;
+
+            @media(min-width:481px) and (max-width:768px) {
+                height: 35%;
+            }
+
+            @media(min-width:1200px) {
+                gap: 0;
+                width: 100%;
+            }
+
+
+            .containerItem3 {
+                width: 45%;
+                height: 100%;
+                background-color: $BackgroundColor;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 1em;
+                top: -2em;
+                transform: translateY(0);
+                transition: all 0.5s;
+
+                &:hover {
+                    transform: translateY(-1em);
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 50%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .containerItem4 {
+                width: 40%;
+                height: 100%;
+                background-color: $BackgroundColor;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                transform: translateY(0);
+                transition: all 0.5s;
+
+                &:hover {
+                    transform: translateY(-1em);
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 60%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}
