@@ -64,9 +64,10 @@ export default function Index() {
           )}
         </div>
         <br /><br /><br />
-        {produtos && produtos.length > 0 ? (
+        {produtos != undefined ?
           <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
-        ) : <></>}
+          : <></>
+        }
       </div>
       <br /><br /><br />
       <div className={styles.division3}>

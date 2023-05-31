@@ -4,7 +4,7 @@ import styles from "./styles/Mensagem.module.scss";
 export default function EnvioPagamentoMensagem() {
     return (
         <>
-            <GenericPage Title='Envio e Pagamento'>
+            <GenericPage >
                 <div className={styles.containerMessage}>
                     <ul>
                         <li>

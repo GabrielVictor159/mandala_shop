@@ -21,7 +21,12 @@ export default function ProdutosCategoria() {
             navigate("/");
         }
     }, [])
-
+    useEffect(() => {
+        const a = searchProducts;
+        a.categoria = selectCategoria.nome;
+        setProdutos(a);
+        setAtualizacao(atualizacao + 1);
+    }, [selectCategoria])
     useEffect(() => {
         const a = searchProducts;
         a.categoria = selectCategoria.nome;
@@ -54,10 +59,7 @@ export default function ProdutosCategoria() {
                         )}
                     </div>
                     <br /><br /><br />
-                    {produtos && produtos.length > 0 ? (
-                        <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
-                    ) : <></>}
-
+                    <PageNav setPage={setPage} page={produtos.pageable.pageNumber + 1} totalPages={produtos.totalPages} />
                 </div>
                 <br /><br /><br /><br /><br /><br /><br />
             </GenericPage>

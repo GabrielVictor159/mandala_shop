@@ -4,6 +4,7 @@ import { Produto } from '../model/Produto';
 import { useEffect, useState } from 'react';
 import ArrayStringToArray from '../functions/ArrayStringToArray';
 import { SystemConfigs } from '../config/SystemConfigs';
+import { useNavigate } from 'react-router';
 
 export interface ProdutosProps {
     vertical?: boolean,
@@ -12,7 +13,7 @@ export interface ProdutosProps {
 
 const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
     const [images, setImages] = useState<string[]>([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (produto?.imagens) {
             setImages(ArrayStringToArray(produto.imagens));
@@ -49,7 +50,7 @@ const Produtos: React.FC<ProdutosProps> = ({ vertical = false, produto }) => {
                     <div className={styles.containerDados}>
                         <h3>{produto?.nome}</h3>
                         <h2 className={styles.precoEscrita}>{`R$ ${produto?.preco}`}</h2>
-                        <button className={styles.button}>MAIS INFORMAÇÕES</button>
+                        <button className={styles.button} onClick={() => { navigate(`/Produto/${produto?.id}`) }}>MAIS INFORMAÇÕES</button>
                     </div>
                 </div>
             }

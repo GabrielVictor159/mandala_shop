@@ -14,6 +14,7 @@ import axios from 'axios';
 import { SystemConfigs } from './config/SystemConfigs';
 import { Categoria } from './model/Categoria';
 import ProdutosCategoria from './pages/ProdutosCategoria';
+import ProdutoView from './pages/ProdutoView';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -61,6 +62,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path='/PoliticaDePrivacidade' element={<PoliticaPrivacidade />} />
+                <Route path='/Produto/:id' element={<ProdutoView />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />
                 {selectCategoria != undefined ?
                   <Route path='/ProdutosCategoria' element={<ProdutosCategoria />} />
