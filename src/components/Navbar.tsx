@@ -103,11 +103,19 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
                         {categorias.length <= 7 && sizeProportion >= 0 ? (
                             <>
                                 {categorias && categorias.map((value: Categoria) => <h3 onClick={() => { setSelectCategoria(value); navigate("/ProdutosCategoria") }}>{value.nome}</h3>)}
-                                <img src='/CarrinhoIcon.png' />
+                                <img src='/CarrinhoIcon.png' onClick={() => {
+                                    const a = sessionStorage.getItem("carrinho");
+                                    a != null ? navigate("/CarrinhoDeCompra")
+                                        : ""
+                                }} />
                             </>
                         ) : (
                             <>
-                                <img src='/CarrinhoIcon.png' />
+                                <img src='/CarrinhoIcon.png' onClick={() => {
+                                    const a = sessionStorage.getItem("carrinho");
+                                    a != null ? navigate("/CarrinhoDeCompra")
+                                        : ""
+                                }} />
                                 <img src={'/icons8-menu-100.png'} style={{ width: '3em' }} onClick={handleClick} />
                             </>
                         )}

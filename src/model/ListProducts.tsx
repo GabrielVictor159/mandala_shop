@@ -1,8 +1,8 @@
 export class ListProducts {
-    public Id: string;
-    public Quantidade: number;
+    public id: string;
+    public quantidade: number;
     constructor(id: string, quantidade: number) {
-        this.Id = id;
-        this.Quantidade = quantidade;
+        this.id = id;
+        this.quantidade = quantidade;
     }
 }

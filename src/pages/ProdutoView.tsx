@@ -45,10 +45,10 @@ export default function ProdutoView() {
                 navigate("/");
             } else {
                 const z = JSON.parse(a);
-                const itemBusca = z.find((item: any) => item.Id === produtoQuantidade.Id);
+                const itemBusca = z.find((item: any) => item.Id === produtoQuantidade.id);
 
                 if (itemBusca) {
-                    itemBusca.Quantidade = itemBusca.Quantidade + 1;
+                    itemBusca.quantidade = itemBusca.quantidade + 1;
                 } else {
                     z.push(produtoQuantidade);
                 }
