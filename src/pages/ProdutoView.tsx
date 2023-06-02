@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from 'react-router-dom';
 import GenericPage from '../components/GenericPage';
 import styles from "./styles/ProdutoView.module.scss";
@@ -6,7 +8,6 @@ import { Produto } from '../model/Produto';
 import { SystemConfigs } from '../config/SystemConfigs';
 import axios from 'axios';
 import ArrayStringToArray from '../functions/ArrayStringToArray';
-import Index from './Index';
 import { ListProducts } from '../model/ListProducts';
 export default function ProdutoView() {
     const { id } = useParams();
@@ -36,7 +37,7 @@ export default function ProdutoView() {
 
     const setCarrinho = () => {
         if (produto?.id !== undefined) {
-            const produtoQuantidade = new ListProducts(produto.id, 1);
+            const produtoQuantidade = new ListProducts(produto, 1);
             const a = sessionStorage.getItem("carrinho");
 
             if (a === null) {
@@ -45,7 +46,7 @@ export default function ProdutoView() {
                 navigate("/");
             } else {
                 const z = JSON.parse(a);
-                const itemBusca = z.find((item: any) => item.Id === produtoQuantidade.id);
+                const itemBusca = z.find((item: any) => item.Id === produtoQuantidade.produto);
 
                 if (itemBusca) {
                     itemBusca.quantidade = itemBusca.quantidade + 1;
@@ -72,7 +73,7 @@ export default function ProdutoView() {
                                     images !== undefined
                                         ?
                                         <>
-                                            {images.map((value, Index) => {
+                                            {images.map((value) => {
                                                 return (
                                                     <img alt={"/MulherMandala.png"} src={`${SystemConfigs.linkBackEnd}images/${value}`} onClick={() => { setSelectImage(value) }} />
                                                 );

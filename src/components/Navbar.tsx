@@ -13,12 +13,12 @@ export interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
-    const { categorias, setCategorias } = useContext(categoriasContext);
+    const { categorias } = useContext(categoriasContext);
     const [isContatosVisible, setIsContatosVisible] = useState(false);
     const [mouseHover, setMouseHover] = useState(false);
     const [contatosHover, setContatosHover] = useState(false);
     const [categoriasNavWidth, setCategoriasNavWidth] = useState(0);
-    const { selectCategoria, setSelectCategoria } = useContext(selectCategoriaContext);
+    const { setSelectCategoria } = useContext(selectCategoriaContext);
     const navigate = useNavigate();
     const [sizeProportion, setSizeProportion] = useState(0);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
         };
     }, []);
     useEffect(() => {
-        const a = windowWidth - windowHeight;
+        const a = windowWidth / windowHeight;
         console.log(a);
         setSizeProportion(a);
     }, [windowHeight, windowWidth])
@@ -54,17 +54,15 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
 
     const handleClick = () => {
         if (categoriasNavWidth === 0) {
-            // Aumentar a largura da classe .categoriasNav
             setCategoriasNavWidth(350);
         } else {
-            // Reduzir a largura da classe .categoriasNav
             setCategoriasNavWidth(0);
         }
     };
 
     return (
         <>
-            {categorias.length >= 7 || sizeProportion < 0 ? (
+            {categorias.length >= 7 || sizeProportion < 1.4 ? (
                 <div className={styles.categoriasNav} style={{ width: categoriasNavWidth }}>
                     <img src="/icons8-x-100.png" className={styles.closeIcon} onClick={handleClick} />
                     <br />
@@ -100,7 +98,7 @@ const Navbar: React.FC<NavbarProps> = ({ active = true, setSearch }) => {
                         <img src='/MulherMandala.png' onClick={() => navigate("/")} />
                     </div>
                     <div className={styles.subdivision2}>
-                        {categorias.length <= 7 && sizeProportion >= 0 ? (
+                        {categorias.length <= 7 && sizeProportion >= 1.4 ? (
                             <>
                                 {categorias && categorias.map((value: Categoria) => <h3 onClick={() => { setSelectCategoria(value); navigate("/ProdutosCategoria") }}>{value.nome}</h3>)}
                                 <img src='/CarrinhoIcon.png' onClick={() => {

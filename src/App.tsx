@@ -16,6 +16,7 @@ import { Categoria } from './model/Categoria';
 import ProdutosCategoria from './pages/ProdutosCategoria';
 import ProdutoView from './pages/ProdutoView';
 import CarrinhoDeCompra from './pages/CarrinhoDeCompra';
+import PedidoView from './pages/PedidoView';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -65,6 +66,7 @@ function App() {
                 <Route path='/PoliticaDePrivacidade' element={<PoliticaPrivacidade />} />
                 <Route path='/CarrinhoDeCompra' element={<CarrinhoDeCompra />} />
                 <Route path='/Produto/:id' element={<ProdutoView />} />
+                <Route path='/Pedido/:id' element={<PedidoView />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />
                 {selectCategoria != undefined ?
                   <Route path='/ProdutosCategoria' element={<ProdutosCategoria />} />

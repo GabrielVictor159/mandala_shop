@@ -1,5 +1,6 @@
 import { ListProducts } from "../ListProducts";
 import { PaymentMethods } from "../enum/PaymentMethods";
+import { ListProductsDTO } from "./ListProductsDTO";
 export class PedidoDTO {
     primeiroNome: string;
     ultimoNome: string;
@@ -7,9 +8,9 @@ export class PedidoDTO {
     cep: string;
     numeroCasa: number;
     telefone: string;
-    metodoPagamento: PaymentMethods;
+    metodoPagamento: string;
     observacoes?: string;
-    produtos?: ListProducts[];
+    produtos?: ListProductsDTO[];
 
     constructor(
         primeiroNome: string,
@@ -18,9 +19,9 @@ export class PedidoDTO {
         cep: string,
         numeroCasa: number,
         telefone: string,
-        metodoPagamento: PaymentMethods,
+        metodoPagamento: string,
         observacoes?: string,
-        produtos?: ListProducts[]
+        produtos?: ListProductsDTO[]
     ) {
         this.primeiroNome = primeiroNome;
         this.ultimoNome = ultimoNome;

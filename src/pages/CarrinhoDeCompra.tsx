@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import Footer from "../components/Footer";
@@ -11,8 +12,19 @@ import styles from "./styles/CarrinhoDeCompra.module.scss";
 import InputMask from 'react-input-mask';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SystemConfigs } from "../config/SystemConfigs";
+import ArrayStringToArray from "../functions/ArrayStringToArray";
+import { PedidoDTO } from "../model/DTO/PedidoDTO";
+import { PaymentMethods } from "../model/enum/PaymentMethods";
+import { ListProductsDTO } from "../model/DTO/ListProductsDTO";
+import axios from "axios";
 export default function CarrinhoDeCompra() {
-    const [carrinho, setCarrinho] = useState<ListProducts[] | any>(sessionStorage.getItem("carrinho"));
+    const storedCarrinho = sessionStorage.getItem("carrinho")
+    const [carrinho, setCarrinho] = useState<ListProducts[]>(
+        storedCarrinho !== null
+            ? JSON.parse(storedCarrinho)
+            : []
+    );
     const storedPersonalInformation = sessionStorage.getItem("personalInformation");
     const [personalInformation, setPersonalInformation] = useState<any>(
         storedPersonalInformation !== null
@@ -28,19 +40,22 @@ export default function CarrinhoDeCompra() {
     const [view1, setView1] = useState<boolean>(personalInformation === null ? true : false);
     const [view2, setView2] = useState<boolean>(enderecoInformation === null ? true : false);
     const [view3, setView3] = useState<boolean>(!view1 && !view2 && personalInformation != null && enderecoInformation != null ? true : false);
-    const [firstName, setFirstName] = useState<string>(personalInformation.primeiroNome);
-    const [lastName, setLastName] = useState<string>(personalInformation.ultimoNome);
-    const [cpf, setCpf] = useState<string>(personalInformation.cpf);
-    const [telefone, setTelefone] = useState<string>(personalInformation.telefone);
-    const [cep, setCep] = useState<string>(enderecoInformation.cep);
-    const [numeroCasa, setNumeroCasa] = useState<string>(enderecoInformation.numeroCasa);
+    const [firstName, setFirstName] = useState<string>(personalInformation != null ? personalInformation.primeiroNome : "");
+    const [lastName, setLastName] = useState<string>(personalInformation != null ? personalInformation.ultimoNome : "");
+    const [cpf, setCpf] = useState<string>(personalInformation != null ? personalInformation.cpf : "");
+    const [telefone, setTelefone] = useState<string>(personalInformation != null ? personalInformation.telefone : "");
+    const [cep, setCep] = useState<string>(enderecoInformation != null ? enderecoInformation.cep : "");
+    const [numeroCasa, setNumeroCasa] = useState<string>(enderecoInformation != null ? enderecoInformation.numeroCasa : "");
     const { history, setHistory } = useContext(historyContext);
-    const [paymentMethod1, setPaymentMethod1] = useState(false);
-    const [paymentMethod2, setPaymentMethod2] = useState(false);
-    const [paymentMethod3, setPaymentMethod3] = useState(false);
-    const [sizeProportion, setSizeProportion] = useState(0);
+    const [paymentMethod1, setPaymentMethod1] = useState<boolean>(false);
+    const [paymentMethod2, setPaymentMethod2] = useState<boolean>(false);
+    const [paymentMethod3, setPaymentMethod3] = useState<boolean>(false);
+    const [sizeProportion, setSizeProportion] = useState<number>(1);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [atualizacao, setAtualizacao] = useState<number>(0);
+    const [valorTotal, setValorTotal] = useState<number>(0);
+    const [obsevation, setObservation] = useState<string>("");
 
     useEffect(() => {
         const handleResize = () => {
@@ -55,16 +70,25 @@ export default function CarrinhoDeCompra() {
         };
     }, []);
     useEffect(() => {
-        const a = windowWidth - windowHeight;
+        let z = 0;
+        carrinho.map((value) => {
+            if (value.produto.preco != undefined && value.quantidade) {
+                z += value.produto.preco * value.quantidade;
+            }
+        })
+        setValorTotal(z);
+    }, [carrinho])
+    useEffect(() => {
+        const a = windowWidth / windowHeight;
         console.log(a);
         setSizeProportion(a);
     }, [windowHeight, windowWidth])
     const navigate = useNavigate();
     useEffect(() => {
-        if (carrinho == null) {
+        if (storedCarrinho == null || carrinho.length === 0) {
             navigate("/")
         }
-    }, [])
+    }, [carrinho, storedCarrinho])
     useEffect(() => {
         const page = new NavigatePages("Carrinho de compra", window.location.pathname);
         setHistory(HistoryPagesSet(history, page));
@@ -127,6 +151,58 @@ export default function CarrinhoDeCompra() {
     function removeSpecialCharactersAndNonNumericDigits(str: string): string {
         const regex = /[^0-9a-zA-Z]+/g;
         return str.replace(regex, '');
+    }
+    const finishOrder = () => {
+        const payment = paymentMethod1 ? PaymentMethods.CARTAO.toString() : paymentMethod2 ? PaymentMethods.DINHEIRO.toString() : paymentMethod3 ? PaymentMethods.PIX.toString() : "";
+        if (payment === "") {
+            toast.error("Por favor selecione uma forma de pagamento!", {
+                position: toast.POSITION.TOP_CENTER
+            })
+            return
+        }
+        const produtos: ListProductsDTO[] = [];
+        carrinho.map((value) => {
+            if (value.produto.id != undefined && value.quantidade != undefined) {
+                produtos.push(new ListProductsDTO(value.produto.id, value.quantidade))
+            }
+        })
+        const z: PedidoDTO = new PedidoDTO(
+            personalInformation.primeiroNome,
+            personalInformation.ultimoNome,
+            removeSpecialCharactersAndNonNumericDigits(personalInformation.cpf),
+            removeSpecialCharactersAndNonNumericDigits(enderecoInformation.cep),
+            enderecoInformation.numeroCasa,
+            removeSpecialCharactersAndNonNumericDigits(personalInformation.telefone),
+            payment,
+            obsevation,
+            produtos
+        );
+        fetch(`${SystemConfigs.linkBackEnd}Pedidos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(z)
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json().then(data => {
+                        sessionStorage.removeItem("carrinho");
+                        navigate(`/Pedido/${data.id}`)
+                    });
+                } else {
+                    return response.text().then(data => {
+                        const errorMessage = data || 'Erro desconhecido';
+                        toast.error(errorMessage, {
+                            position: toast.POSITION.TOP_CENTER
+                        });
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+
     }
     const PersonalInformationComponente = () => {
         if (view1) {
@@ -216,14 +292,14 @@ export default function CarrinhoDeCompra() {
             <header>
                 <Navbar active={false} />
             </header>
-            <div className={styles.division} style={{ flexDirection: sizeProportion < 0 ? "column" : "row" }}>
-                {sizeProportion > 0 ?
+            <div className={styles.division} style={{ flexDirection: sizeProportion < 1.4 ? "column" : "row" }}>
+                {sizeProportion > 1.4 ?
                     <td>
                         {PersonalInformationComponente()}
                     </td>
                     : <></>}
                 <td>
-                    {sizeProportion < 0 ?
+                    {sizeProportion < 1.4 ?
                         <>
                             {PersonalInformationComponente()}
                             <br />
@@ -346,13 +422,92 @@ export default function CarrinhoDeCompra() {
                                         <label>{"à vista"}</label>
                                         <label className={styles.textEspecialButtonMethodPayment}>{"Informar valor nas OBSERVAÇÕES caso necessite de troco."}</label>
                                     </div>
-                                    <button>Finalizar Pedido</button>
+                                    <button onClick={() => { finishOrder() }}>Finalizar Pedido</button>
                                 </>
                         }
                     </div>
                 </td>
-                <td>
+                <td className={styles.containerProdutos}>
+                    <h2>
+                        Resumo do pedido
+                    </h2>
+                    {carrinho.length > 0 ?
+                        carrinho.map((value, Index) => {
+                            const a = ArrayStringToArray(value.produto.imagens);
+                            const subTotal = value.produto.preco !== undefined && value.quantidade !== undefined ? value.produto.preco * value.quantidade : 0;
+                            return (
+                                <div key={value.produto.nome}>
+                                    <div className={styles.containerProduto}>
+                                        <img src={`${SystemConfigs.linkBackEnd}images/${a[0]}`} />
+                                        <div className={styles.descricaoProduto}>
+                                            <h3>{value.produto.nome}</h3>
+                                            <div className={styles.containerQuantidadeProduto}>
+                                                <div>
+                                                    {
+                                                        value.quantidade === 1
+                                                            ? <img src={"/icons8-trash-128.png"}
+                                                                onClick={() => {
+                                                                    const z = carrinho;
+                                                                    z.splice(Index, 1);
+                                                                    setCarrinho(z);
+                                                                    sessionStorage.setItem("carrinho", JSON.stringify(z))
+                                                                    setAtualizacao(atualizacao + 1)
+                                                                }} />
+                                                            : <img src={"/icons8-minus-96.png"}
+                                                                onClick={() => {
+                                                                    const z = carrinho;
+                                                                    z[Index].quantidade = z[Index].quantidade - 1;
+                                                                    setCarrinho(z);
+                                                                    sessionStorage.setItem("carrinho", JSON.stringify(z))
+                                                                    setAtualizacao(atualizacao + 1)
+                                                                }} />
+                                                    }
+                                                    <h1>{value.quantidade}</h1>
+                                                    <img src={"/icons8-plus-math-90.png"}
+                                                        onClick={() => {
+                                                            const z = carrinho;
+                                                            z[Index].quantidade = z[Index].quantidade + 1;
+                                                            setCarrinho(z);
+                                                            sessionStorage.setItem("carrinho", JSON.stringify(z))
+                                                            setAtualizacao(atualizacao + 1)
+                                                        }} />
+                                                </div>
+                                                <h3>
+                                                    {subTotal}
+                                                </h3>
+                                            </div>
 
+                                        </div>
+
+                                    </div>
+                                    <br /><br />
+
+
+                                </div>
+                            )
+                        })
+
+                        : <></>
+                    }
+                    <h3>{"Observações"}</h3>
+                    <textarea
+                        placeholder="Adicione informações relacionadas ao seu pedido."
+                        onChange={e => { setObservation(e.target.value) }}
+                    />
+                    <br />
+                    <br />
+                    <div style={{ width: "104%", height: "2px", backgroundColor: "#AEAEAE" }} />
+                    <div className={styles.containerPrecos}>
+                        <div>
+                            <h3>
+                                {`TOTAL DO PEDIDO`}
+                            </h3>
+                            <h3>
+                                {`R$${valorTotal}`}
+                            </h3>
+                        </div>
+
+                    </div>
                 </td>
 
             </div>
