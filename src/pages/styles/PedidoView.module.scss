@@ -1,0 +1,118 @@
+@import "../../components/styles/global/Font.module.scss";
+@import "../../components/styles/global/Color.module.scss";
+
+.division {
+    width: 100%;
+    min-height: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5em;
+    padding-bottom: 5em;
+    gap: 10em;
+
+    .container1 {
+        width: 50em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        @include fontePadrao();
+        padding-bottom: 5em;
+
+        .containerProdutos {
+            width: 80%;
+            padding-left: 4em;
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+
+            h1 {
+                transform: translateX(-0.4em);
+            }
+
+            div {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                img {
+                    width: 8em;
+                    height: 10em;
+                    object-fit: cover;
+                    box-shadow: 0 0 0 0.25em white,
+                        0 0 0 0.5em black;
+                }
+
+                div {
+                    transform: translate(-4em);
+                    width: 15em;
+                    text-align: center;
+
+                    h2 {}
+                }
+
+                h4 {
+
+                    transform: translateY(4em);
+
+                }
+            }
+        }
+    }
+
+    .container2 {
+        display: flex;
+        flex-direction: column;
+
+        .containerDadosPedido {
+            width: 40em;
+            min-height: 30em;
+            border: 2px solid black;
+            border-radius: 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            @include fontePadrao();
+
+            div {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1em;
+
+                img {
+                    width: 3em;
+                    height: 3em;
+                    object-fit: cover;
+                }
+            }
+
+            h2 {
+                color: $Color2;
+            }
+
+            button {
+                width: 17em;
+                height: 3em;
+                background-color: $Color2;
+                color: white;
+                border: none;
+                cursor: pointer;
+                @include fontePadrao(2);
+                transition: all 0.5s;
+                transform: translateY(0);
+                box-shadow: 0 0 0 0 rgba($color: #000000, $alpha: 0.6);
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 0.3em 5px 0 rgba($color: #000000, $alpha: 0.6);
+                }
+            }
+        }
+    }
+}

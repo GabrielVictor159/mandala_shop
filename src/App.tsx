@@ -17,6 +17,7 @@ import ProdutosCategoria from './pages/ProdutosCategoria';
 import ProdutoView from './pages/ProdutoView';
 import CarrinhoDeCompra from './pages/CarrinhoDeCompra';
 import PedidoView from './pages/PedidoView';
+import LoginAdmin from './pages/Admin/LoginAdmin';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -67,6 +68,7 @@ function App() {
                 <Route path='/CarrinhoDeCompra' element={<CarrinhoDeCompra />} />
                 <Route path='/Produto/:id' element={<ProdutoView />} />
                 <Route path='/Pedido/:id' element={<PedidoView />} />
+                <Route path='/Admin' element={<LoginAdmin />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />
                 {selectCategoria != undefined ?
                   <Route path='/ProdutosCategoria' element={<ProdutosCategoria />} />

@@ -17,7 +17,6 @@ import ArrayStringToArray from "../functions/ArrayStringToArray";
 import { PedidoDTO } from "../model/DTO/PedidoDTO";
 import { PaymentMethods } from "../model/enum/PaymentMethods";
 import { ListProductsDTO } from "../model/DTO/ListProductsDTO";
-import axios from "axios";
 export default function CarrinhoDeCompra() {
     const storedCarrinho = sessionStorage.getItem("carrinho")
     const [carrinho, setCarrinho] = useState<ListProducts[]>(
