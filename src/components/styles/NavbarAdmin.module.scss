@@ -1,0 +1,18 @@
+@import "./global/Font.module.scss";
+@import "./global/Geral.module.scss";
+@import "./global/Color.module.scss";
+
+.nav {
+    @include fontePadrao();
+    background-color: $BackgroundColor;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    color: white;
+
+    h1 {
+        cursor: pointer;
+    }
+}

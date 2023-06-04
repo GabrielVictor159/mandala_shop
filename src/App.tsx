@@ -18,7 +18,9 @@ import ProdutoView from './pages/ProdutoView';
 import CarrinhoDeCompra from './pages/CarrinhoDeCompra';
 import PedidoView from './pages/PedidoView';
 import LoginAdmin from './pages/Admin/LoginAdmin';
-import AdminProdutos from './pages/Admin/AdminProdutos';
+import AdminProdutos from './pages/Admin/Produtos/AdminProdutos';
+import AdminCategorias from './pages/Admin/Categorias/AdminCategorias';
+import AdminPedidos from './pages/Admin/Pedidos/AdminPedidos';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -71,6 +73,8 @@ function App() {
                 <Route path='/Pedido/:id' element={<PedidoView />} />
                 <Route path='/Admin' element={<LoginAdmin />} />
                 <Route path='/Admin/Produtos' element={<AdminProdutos />} />
+                <Route path='/Admin/Categorias' element={<AdminCategorias />} />
+                <Route path='/Admin/Pedidos' element={<AdminPedidos />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />
                 {selectCategoria != undefined ?
                   <Route path='/ProdutosCategoria' element={<ProdutosCategoria />} />

@@ -1,0 +1,17 @@
+.tableWrapper {
+    overflow: auto;
+}
+
+.tableResizable {
+
+    th,
+    td {
+        resize: both;
+        overflow: hidden;
+        max-width: 30em;
+        word-break: break-word;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        text-align: center;
+    }
+}

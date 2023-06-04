@@ -1,0 +1,25 @@
+.division1 {
+    width: 100vw;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10em;
+    align-items: center;
+    padding-bottom: 10em;
+
+    .containerLista {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .headerContainerLista {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}
