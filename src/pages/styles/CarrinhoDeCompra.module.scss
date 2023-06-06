@@ -20,8 +20,7 @@ $color: #009D23;
         display: flex;
         flex-direction: column;
         width: 25em;
-        gap: 2em;
-        @include fontePadrao();
+        gap: 1em;
         border: 1px solid rgba($color: #000000, $alpha: 1.0);
         border-radius: 30px;
         padding: 2em;
@@ -67,6 +66,8 @@ $color: #009D23;
             display: flex;
             flex-direction: row;
             align-items: center;
+            @include fontePadrao(10);
+            font-weight: bold;
 
             div {
                 @include fonteEscrita(20);
@@ -96,7 +97,7 @@ $color: #009D23;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-around;
-                @include fontePadrao(5);
+                @include fontePadrao(0);
 
                 div {
                     @include fonteEscrita(20);
@@ -126,6 +127,7 @@ $color: #009D23;
 
         .buttonMethodPaymentBase {
             width: 90%;
+            height: 10%;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -133,12 +135,17 @@ $color: #009D23;
             padding-inline: 10px;
             transition: all 0.5s;
             cursor: pointer;
+            @include fontePadrao(-5);
 
             .textIconContainer {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 gap: 1em;
+
+                h4 {
+                    @include fontePadrao(2);
+                }
 
                 img {
                     width: 2em;
@@ -194,7 +201,7 @@ $color: #009D23;
         .textEspecialButtonMethodPayment {
             position: absolute;
             @include fontePadrao(-7);
-            transform: translate(35%, 23px);
+            transform: translate(0%, 30px);
 
         }
     }

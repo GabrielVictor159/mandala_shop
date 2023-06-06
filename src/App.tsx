@@ -21,6 +21,8 @@ import LoginAdmin from './pages/Admin/LoginAdmin';
 import AdminProdutos from './pages/Admin/Produtos/AdminProdutos';
 import AdminCategorias from './pages/Admin/Categorias/AdminCategorias';
 import AdminPedidos from './pages/Admin/Pedidos/AdminPedidos';
+import ProdutoForm from './pages/Admin/Produtos/ProdutoForm';
+import CategoriaForm from './pages/Admin/Categorias/CategoriaForm';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -73,7 +75,9 @@ function App() {
                 <Route path='/Pedido/:id' element={<PedidoView />} />
                 <Route path='/Admin' element={<LoginAdmin />} />
                 <Route path='/Admin/Produtos' element={<AdminProdutos />} />
+                <Route path='/Admin/Produtos/Adicionar' element={<ProdutoForm />} />
                 <Route path='/Admin/Categorias' element={<AdminCategorias />} />
+                <Route path='/Admin/Categorias/Adicionar' element={<CategoriaForm />} />
                 <Route path='/Admin/Pedidos' element={<AdminPedidos />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />
                 {selectCategoria != undefined ?
