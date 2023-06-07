@@ -1,13 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { PageableResponseDTO } from "../../../model/DTO/PageableResponseDTO";
-import { Produto } from "../../../model/Produto";
 import axios from "axios";
 import { SystemConfigs } from "../../../config/SystemConfigs";
-import { PaginacaoProdutoDTO } from "../../../model/DTO/PaginacaoProdutoDTO";
 import PageNav from "../../../components/PageNav";
 import { useNavigate } from "react-router";
-import DeleteItem from "../../../functions/DeleteItem";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import styles from "../../styles/Admin/AdminProdutos.module.scss";
 import CustomTable from "../../../components/CustomTable";
@@ -39,10 +38,26 @@ export default function AdminPedidos() {
             })
             .then(response => {
                 const data = response.data;
-                data.content.map((value: any, index: any) => {
-                    data.content[index].ipPerson = JSON.stringify(data.content[index].ipPerson);
-                    data.content[index].produtos = JSON.stringify(data.content[index].produtos);
-                })
+                data.content.map((_value: any, index: any) => {
+                    const ipPersonNotNull: any = {};
+
+                    for (const key in data.content[index].ipPerson) {
+                        if (data.content[index].ipPerson[key] !== null) {
+                            ipPersonNotNull[key] = data.content[index].ipPerson[key];
+                        }
+                    }
+                    delete ipPersonNotNull.id;
+                    data.content[index].ipPerson = JSON.stringify(ipPersonNotNull);
+                    const produtosQuantidade: any[] = [];
+                    data.content[index].produtos.map((value: any) => {
+                        produtosQuantidade.push({
+                            nome: value.nome,
+                            quantidade: value.quantidade
+                        });
+                    });
+                    data.content[index].produtos = JSON.stringify(produtosQuantidade);
+                });
+
                 setPedidos(data);
             })
             .catch(error => {

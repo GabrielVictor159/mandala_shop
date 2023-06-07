@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
 
-import { Route, Routes, useNavigate } from 'react-router'
+import { Route, Routes } from 'react-router'
 import Index from './pages/Index'
 import PoliticaPrivacidade from './pages/PoliticaPrivacidade'
 import { NavigatePages } from './model/NavigatePages';
@@ -23,6 +23,8 @@ import AdminCategorias from './pages/Admin/Categorias/AdminCategorias';
 import AdminPedidos from './pages/Admin/Pedidos/AdminPedidos';
 import ProdutoForm from './pages/Admin/Produtos/ProdutoForm';
 import CategoriaForm from './pages/Admin/Categorias/CategoriaForm';
+import CategoriaUpdate from './pages/Admin/Categorias/CategoriaUpdate';
+import ProdutosUpdate from './pages/Admin/Produtos/ProdutosUpdate';
 
 export const historyContext = createContext<any>(null);
 export const produtosContext = createContext<any>(null);
@@ -33,7 +35,6 @@ function App() {
   const [produtos, setProducts] = useState<PageableResponseDTO<Produto>>();
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectCategoria, setSelectCategoria] = useState<Categoria>();
-  const navigate = useNavigate();
   const setProdutos = (searchProducts: PaginacaoProdutoDTO) => {
     console.log(JSON.stringify(searchProducts));
     axios.post(`${SystemConfigs.linkBackEnd}Produtos/getAll`, JSON.stringify(searchProducts), {
@@ -75,8 +76,10 @@ function App() {
                 <Route path='/Pedido/:id' element={<PedidoView />} />
                 <Route path='/Admin' element={<LoginAdmin />} />
                 <Route path='/Admin/Produtos' element={<AdminProdutos />} />
+                <Route path='/Admin/Produtos/:id' element={<ProdutosUpdate />} />
                 <Route path='/Admin/Produtos/Adicionar' element={<ProdutoForm />} />
                 <Route path='/Admin/Categorias' element={<AdminCategorias />} />
+                <Route path='/Admin/Categorias/:id' element={<CategoriaUpdate />} />
                 <Route path='/Admin/Categorias/Adicionar' element={<CategoriaForm />} />
                 <Route path='/Admin/Pedidos' element={<AdminPedidos />} />
                 <Route path='/EnvioPagamentoMensagem' element={<EnvioPagamentoMensagem />} />

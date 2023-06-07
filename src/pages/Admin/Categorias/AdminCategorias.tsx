@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Categoria } from "../../../model/Categoria";
-import { PageableResponseDTO } from "../../../model/DTO/PageableResponseDTO";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { SystemConfigs } from "../../../config/SystemConfigs";

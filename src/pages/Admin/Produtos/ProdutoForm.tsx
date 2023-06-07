@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import styles from "../../styles/Admin/AdminProdutosAdicionar.module.scss";
 import handleImagensChangeMultiple from '../../../functions/handleImagensChangeMultiple';
+import NavbarAdmin from '../../../components/NavbarAdmin';
 interface Categoria {
     id: string;
     nome: string;
@@ -86,6 +87,7 @@ const ProdutoForm: React.FC = () => {
 
     return (
         <>
+            <NavbarAdmin />
             <form onSubmit={handleSubmit} className={styles.division}>
                 <label>
                     Nome:

@@ -66,23 +66,15 @@
     }
 
     .containerImage {
-        width: 40%;
-        height: 100%;
+        width: 9em;
+        height: 12em;
         background-color: $BackgroundColor;
         display: flex;
         align-items: center;
         justify-content: center;
         padding-inline: 5px;
 
-        @media(min-width:320px) and (max-width:480px) {
-            height: 90%;
-            padding-inline: 5px;
-        }
 
-        @media(min-width:481px) and (max-width:768px) {
-            width: 40%;
-            height: 100%;
-        }
 
         .image {
             width: 90%;

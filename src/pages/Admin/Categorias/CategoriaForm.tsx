@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ChangeEvent, useEffect, useState } from "react";
 import handleImageChange from "../../../functions/handleImageChange";
 import { useNavigate } from "react-router";
 import { SystemConfigs } from "../../../config/SystemConfigs";
@@ -6,11 +7,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-bootstrap";
 import styles from "../../styles/Admin/AdminCategoriasAdicionar.module.scss";
+import NavbarAdmin from "../../../components/NavbarAdmin";
 export default function CategoriaForm() {
     const [nome, setNome] = useState<string>("");
     const [imagens, setImagens] = useState<string[]>();
     const adminSearch = sessionStorage.getItem("admin");
-    const [admin, setAdmin] = useState(adminSearch != null ? JSON.parse(adminSearch) : null);
+    const [admin] = useState(adminSearch != null ? JSON.parse(adminSearch) : null);
     const navigate = useNavigate();
     useEffect(() => {
         if (sessionStorage.getItem("admin") === null) {
@@ -51,6 +53,7 @@ export default function CategoriaForm() {
     }
     return (
         <>
+            <NavbarAdmin />
             <div className={styles.division}>
                 <label>
                     Nome:
@@ -61,10 +64,9 @@ export default function CategoriaForm() {
                     />
                 </label>
                 <label>
-                    Imagens:
+                    Image:
                     <input
                         type="file"
-                        multiple
                         onChange={handleImagesChange}
                     />
                 </label>
